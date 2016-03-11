@@ -8,23 +8,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.calculator.arseniy.calculator.MainActivity">
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="left">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#FF0000FF"
+            android:textColor="#FF00FFFF"
             android:id="@+id/text1"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/text2"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -152,6 +150,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:id="@+id/buttonEqually"
                 android:text="="/>
         </LinearLayout>
 

@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.Objects;
+import java.util.Stack;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
     private TextView textViewResult;
     private Double result;
+    private Stack<Double> stack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         result = new Double(0);
     }
 
-    public void onButtonClick(View view){
+    public void onButtonClick(View view) {
 
         String subText = null;
         subText = (String) textView.getText();
@@ -69,6 +74,57 @@ public class MainActivity extends AppCompatActivity {
             case R.id.buttonPlus:
                 textView.setText(subText.concat("+"));
                 break;
+            case R.id.buttonEqually:
+                stack = new Stack<>();
+                textViewResult.setText(work((String)textView.getText()).toString());
+                textView.setText("");
+                break;
         }
+    }
+
+    public Double work(String str) {
+
+        char[] strArray = str.toCharArray();
+        Integer strLength = str.length();
+
+        Integer i = 0;
+
+        while (i<strLength) {
+            if (strArray[i]>='0' && strArray[i]<='9') {
+                Integer start = i;
+                while (i<strLength && strArray[i]>='0' && strArray[i]<='9') {
+                    i++;
+                }
+                stack.push(numberOut(str.substring(start,i)));
+            } else if (strArray[i]=='+') {
+                i++;
+                Integer start = i;
+                while (i<strLength && strArray[i]>='0' && strArray[i]<='9') {
+                    i++;
+                }
+
+                Double numberNext = stack.pop();
+                stack.push(numberNext+numberOut(str.substring(start,i)));
+            }
+        }
+
+        if (!stack.empty()) {
+            return stack.pop();
+        }
+        else {
+            return null;
+        }
+    }
+
+    public Double numberOut( String str) {
+        return Double.parseDouble(str);
+    }
+
+    public Double numberPlus(Double first, Double second) {
+        return first+second;
+    }
+
+    public Double brackets() {
+        return null;
     }
 }
